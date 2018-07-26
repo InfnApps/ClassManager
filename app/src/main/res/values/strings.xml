@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Class Manager</string>
+    <string name="question_prompt">Qual é a sua dúvida?</string>
+    <string name="moment_placeholder">19:25</string>
+    <string name="anonymous_name">Anônimo</string>
+    <string name="question_hint">Faça a sua pergunta</string>
+    <string name="send">Enviar</string>
+    <string name="anonymous">Anônima?</string>
+</resources>

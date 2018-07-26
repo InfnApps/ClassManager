@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/default_padding">
+
+        <TextView
+            android:id="@+id/question_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/question_prompt"/>
+
+        <TextView
+            android:id="@+id/question_moment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question_body"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+            android:textStyle="italic"
+            android:text="@string/moment_placeholder"/>
+
+        <TextView
+            android:id="@+id/asker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/question_body"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="@string/anonymous_name"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
