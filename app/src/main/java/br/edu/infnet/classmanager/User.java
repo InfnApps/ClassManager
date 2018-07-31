@@ -6,6 +6,12 @@ public class User {
     private String name;
     private String email;
     private String course;
+    private static User anonymous;
+
+    public static User getAnonymousUser(){
+        anonymous = new User(0, "Anônimo", null, null);
+        return anonymous;
+    }
 
     public User(int id, String name, String email, String course) {
         this.id = id;

@@ -21,6 +21,11 @@ public class Question {
         this.moment = Calendar.getInstance().getTime();
     }
 
+    @Override
+    public String toString() {
+        return body + "\n" + moment + "\n" + asker.getName() + "\n";
+    }
+
     public String getBody() {
         return body;
     }
