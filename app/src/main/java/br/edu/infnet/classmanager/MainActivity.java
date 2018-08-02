@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String defaultUser = new String(1,
+        User defaultUser = new User(1,
                             "Humberto",
                             "humberto@al.infnet.edu.br",
                             "ADS");
@@ -29,14 +29,15 @@ public class MainActivity extends AppCompatActivity {
         questionCards = new ArrayList<>();
         for (int i = 1; i < 3; i++){
                 questionCards.add(new QuestionCard("Qual será a " + i + "a pergunta?",
-                        defaultUser,
+                        defaultUser.getName(),
                         true));
             }
 
-
+        //
         QuestionAdapter adapter = new QuestionAdapter(questionCards);
 
         RecyclerView questionList = findViewById(R.id.questions_list);
+        // LayoutManager para
         LinearLayoutManager llm = new LinearLayoutManager(this);
         //GridLayoutManager llm = new GridLayoutManager(this, 2);
         //StaggeredGridLayoutManager llm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

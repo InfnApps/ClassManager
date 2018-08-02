@@ -34,7 +34,7 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         QuestionViewHolder vh = (QuestionViewHolder) holder;
         vh.body.setText(questionCard.getBody());
         vh.moment.setText(DateFormat.getTimeInstance().format(questionCard.getMoment()));
-        vh.userName.setText(questionCard.getAskerName().getName());
+        vh.userName.setText(questionCard.getAskerName());
 
     }
 

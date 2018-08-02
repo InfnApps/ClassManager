@@ -1,19 +1,19 @@
 package br.edu.infnet.classmanager;
 
-public class String {
+public class User {
 
     private int id;
     private java.lang.String name;
     private java.lang.String email;
     private java.lang.String course;
-    private static String anonymous;
+    private static User anonymous;
 
-    public static String getAnonymousUser(){
-        anonymous = new String(0, "Anônimo", null, null);
+    public static User getAnonymousUser(){
+        anonymous = new User(0, "Anônimo", null, null);
         return anonymous;
     }
 
-    public String(int id, java.lang.String name, java.lang.String email, java.lang.String course) {
+    public User(int id, java.lang.String name, java.lang.String email, java.lang.String course) {
         this.id = id;
         this.name = name;
         this.email = email;

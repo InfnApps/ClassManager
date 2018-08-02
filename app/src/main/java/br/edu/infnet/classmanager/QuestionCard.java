@@ -5,13 +5,13 @@ import java.util.Date;
 
 public class QuestionCard {
 
-    private java.lang.String body;
+    private String body;
     private Date moment;
     private String askerName;
     private boolean answered;
     private boolean anonymous;
 
-    public QuestionCard(java.lang.String text, String askerName, boolean anonymous) {
+    public QuestionCard(String text, String askerName, boolean anonymous) {
         this.body = text;
         this.askerName = askerName;
         this.anonymous = anonymous;
@@ -23,10 +23,10 @@ public class QuestionCard {
 
     @Override
     public java.lang.String toString() {
-        return body + "\n" + moment + "\n" + askerName.getName() + "\n";
+        return body + "\n" + moment + "\n" + askerName + "\n";
     }
 
-    public java.lang.String getBody() {
+    public String getBody() {
         return body;
     }
 
@@ -42,7 +42,7 @@ public class QuestionCard {
         return answered;
     }
 
-    public void setBody(java.lang.String body) {
+    public void setBody(String body) {
         this.body = body;
     }
 

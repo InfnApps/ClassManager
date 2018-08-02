@@ -24,7 +24,7 @@ public class QuestionComposer extends AppCompatActivity {
 //        EditText questionField = findViewById(R.id.question_field);
 //        CheckBox box = findViewById(R.id.anonymous_box);
 //
-//        String user = String.getAnonymousUser();
+//        User user = User.getAnonymousUser();
 //        /*if (!box.isChecked()){
 //            user =
 //        }*/
