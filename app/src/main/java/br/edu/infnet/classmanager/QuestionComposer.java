@@ -8,9 +8,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class QuestionComposer extends AppCompatActivity {
 
@@ -20,32 +27,36 @@ public class QuestionComposer extends AppCompatActivity {
         setContentView(R.layout.activity_question_composer);
     }
 
-//    public void saveQuestion(View view){
-//        EditText questionField = findViewById(R.id.question_field);
-//        CheckBox box = findViewById(R.id.anonymous_box);
-//
-//        User user = User.getAnonymousUser();
-//        /*if (!box.isChecked()){
-//            user =
-//        }*/
-//        QuestionCard questionCard = new QuestionCard(questionField.getText().toString(),
-//                user, box.isChecked());
-//
-//        File outFile = new File(getFilesDir(),MainActivity.QUESTIONS_FILENAME);
-//        try{
-//            if (!outFile.exists()){
-//                outFile.createNewFile();
-//            }
-//            FileOutputStream outputStream = new FileOutputStream(outFile);
-//            // Para lidar com strings
-//            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-//            writer.write("#\n");
-//            writer.write(questionCard.toString());
-//            writer.close();
-//        }catch (IOException exception){
-//            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-//        }
-//
-//
-//    }
+    public void saveQuestion(View view){
+        //pega referências para as views na interface
+        EditText questionField = findViewById(R.id.question_field);
+        CheckBox box = findViewById(R.id.anonymous_box);
+
+        // pega os valores necessários para construir uma QuestionCard a partir das views
+        String questionBody = questionField.getText().toString();
+        boolean isAnonym = box.isChecked();
+        String askerName = "Anônimo";
+        if (!isAnonym){
+            askerName = MainActivity.getAuthenticatedUserName();
+        }
+        QuestionCard questionCard = new QuestionCard(questionBody, askerName, isAnonym);
+
+
+        File outFile = new File(getFilesDir(), MainActivity.QUESTIONS_FILENAME);
+        try {
+            OutputStream outputStream = new FileOutputStream(outFile, true);
+            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+            // escreve no arquivo
+            writer.write("#\n");
+            writer.write(questionCard.toString());
+
+            writer.close();
+        } catch (FileNotFoundException exception){
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (IOException exception){
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        // encerra a Activity
+        finish();
+    }
 }

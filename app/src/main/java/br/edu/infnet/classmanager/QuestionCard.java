@@ -22,8 +22,8 @@ public class QuestionCard {
     }
 
     @Override
-    public java.lang.String toString() {
-        return body + "\n" + moment + "\n" + askerName + "\n";
+    public String toString() {
+        return body + "\n" + moment + "\n" + askerName + "\n" + anonymous + "\n";
     }
 
     public String getBody() {

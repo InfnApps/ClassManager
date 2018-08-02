@@ -7,14 +7,29 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     List<QuestionCard> questionCards;
-    public static final java.lang.String QUESTIONS_FILENAME = "questionCards.txt";
+    public static final String QUESTIONS_FILENAME = "questionCards.txt";
+    RecyclerView questionList;
+
+    // Method to simulated a call for the authenticated user
+    public static String getAuthenticatedUserName(){
+        return "Josias";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         //
         QuestionAdapter adapter = new QuestionAdapter(questionCards);
 
-        RecyclerView questionList = findViewById(R.id.questions_list);
+        questionList = findViewById(R.id.questions_list);
         // LayoutManager para
         LinearLayoutManager llm = new LinearLayoutManager(this);
         //GridLayoutManager llm = new GridLayoutManager(this, 2);
@@ -50,6 +65,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        List<QuestionCard> questionCards = new ArrayList<>();
+        File inputFile = new File(getFilesDir(), QUESTIONS_FILENAME);
+        try{
+            InputStream inputStream = new FileInputStream(inputFile);
+            InputStreamReader reader = new InputStreamReader(inputStream);
+            // para ler textos de maneira estruturada
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            String line = bufferedReader.readLine();
+
+            while (line != null){
+                if (line.equals("#")){
+                    String body = bufferedReader.readLine();
+                    //TODO: deal with Date datatype
+                    String date = bufferedReader.readLine();
+                    String askerName = bufferedReader.readLine();
+                    boolean isAnonym = Boolean.parseBoolean(bufferedReader.readLine());
+                    QuestionCard questionCard = new QuestionCard(body, askerName, isAnonym);
+                    questionCards.add(questionCard);
+                }
+                line = bufferedReader.readLine();
+            }
+
+        } catch (FileNotFoundException exception){
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        }catch (IOException exception){
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        QuestionAdapter adapter = new QuestionAdapter(questionCards);
+        questionList.setAdapter(adapter);
+        // atualizar visualizção dos elementos da RecyclerView
+        adapter.notifyDataSetChanged();
+    }
 
     public void askQuestion(View view){
         Intent intent = new Intent(this, QuestionComposer.class);
