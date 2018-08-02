@@ -39,23 +39,42 @@ public class QuestionComposer extends AppCompatActivity {
         if (!isAnonym){
             askerName = MainActivity.getAuthenticatedUserName();
         }
-        QuestionCard questionCard = new QuestionCard(questionBody, askerName, isAnonym);
+        final QuestionCard questionCard = new QuestionCard(questionBody, askerName, isAnonym);
+
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            File outFile = new File(getFilesDir(), MainActivity.QUESTIONS_FILENAME);
+                            OutputStream outputStream = new FileOutputStream(outFile, true);
+                            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+                            // escreve no arquivo
+                            writer.write("#\n");
+                            writer.write(questionCard.toString());
+
+                            writer.close();
+                        } catch (final FileNotFoundException exception){
+                            QuestionComposer.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(QuestionComposer.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        } catch (final IOException exception){
+                            QuestionComposer.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(QuestionComposer.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }
+                }
+        ).start();
 
 
-        File outFile = new File(getFilesDir(), MainActivity.QUESTIONS_FILENAME);
-        try {
-            OutputStream outputStream = new FileOutputStream(outFile, true);
-            OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-            // escreve no arquivo
-            writer.write("#\n");
-            writer.write(questionCard.toString());
-
-            writer.close();
-        } catch (FileNotFoundException exception){
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-        } catch (IOException exception){
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-        }
         // encerra a Activity
         finish();
     }

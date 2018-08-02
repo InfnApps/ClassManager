@@ -69,39 +69,69 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        List<QuestionCard> questionCards = new ArrayList<>();
-        File inputFile = new File(getFilesDir(), QUESTIONS_FILENAME);
-        try{
-            InputStream inputStream = new FileInputStream(inputFile);
-            InputStreamReader reader = new InputStreamReader(inputStream);
-            // para ler textos de maneira estruturada
-            BufferedReader bufferedReader = new BufferedReader(reader);
 
-            String line = bufferedReader.readLine();
 
-            while (line != null){
-                if (line.equals("#")){
-                    String body = bufferedReader.readLine();
-                    //TODO: deal with Date datatype
-                    String date = bufferedReader.readLine();
-                    String askerName = bufferedReader.readLine();
-                    boolean isAnonym = Boolean.parseBoolean(bufferedReader.readLine());
-                    QuestionCard questionCard = new QuestionCard(body, askerName, isAnonym);
-                    questionCards.add(questionCard);
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        final List<QuestionCard> questionCards = new ArrayList<>();
+                        File inputFile = new File(getFilesDir(), QUESTIONS_FILENAME);
+                        try{
+                            InputStream inputStream = new FileInputStream(inputFile);
+                            InputStreamReader reader = new InputStreamReader(inputStream);
+                            // para ler textos de maneira estruturada
+                            BufferedReader bufferedReader = new BufferedReader(reader);
+
+                            String line = bufferedReader.readLine();
+
+                            while (line != null){
+                                if (line.equals("#")){
+                                    String body = bufferedReader.readLine();
+                                    //TODO: deal with Date datatype
+                                    String date = bufferedReader.readLine();
+                                    String askerName = bufferedReader.readLine();
+                                    boolean isAnonym = Boolean.parseBoolean(bufferedReader.readLine());
+                                    QuestionCard questionCard = new QuestionCard(body, askerName, isAnonym);
+                                    questionCards.add(questionCard);
+                                }
+                                line = bufferedReader.readLine();
+                            }
+
+                        } catch (final FileNotFoundException exception){
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        } catch (final IOException exception){
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+
+                        questionList.post(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        QuestionAdapter adapter = new QuestionAdapter(questionCards);
+                                        questionList.setAdapter(adapter);
+                                        // atualizar visualizção dos elementos da RecyclerView
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                        );
+
+                    }
                 }
-                line = bufferedReader.readLine();
-            }
+        ).start();
 
-        } catch (FileNotFoundException exception){
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-        }catch (IOException exception){
-            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
-        }
 
-        QuestionAdapter adapter = new QuestionAdapter(questionCards);
-        questionList.setAdapter(adapter);
-        // atualizar visualizção dos elementos da RecyclerView
-        adapter.notifyDataSetChanged();
     }
 
     public void askQuestion(View view){
