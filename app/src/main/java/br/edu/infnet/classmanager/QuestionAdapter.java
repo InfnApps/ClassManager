@@ -12,10 +12,10 @@ import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter {
 
-    List<Question> questions;
+    List<QuestionCard> questionCards;
 
-    public QuestionAdapter(List<Question> questions) {
-        this.questions = questions;
+    public QuestionAdapter(List<QuestionCard> questionCards) {
+        this.questionCards = questionCards;
     }
 
     @NonNull
@@ -29,18 +29,18 @@ public class QuestionAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Question question = questions.get(position);
+        QuestionCard questionCard = questionCards.get(position);
 
         QuestionViewHolder vh = (QuestionViewHolder) holder;
-        vh.body.setText(question.getBody());
-        vh.moment.setText(DateFormat.getTimeInstance().format(question.getMoment()));
-        vh.userName.setText(question.getAsker().getName());
+        vh.body.setText(questionCard.getBody());
+        vh.moment.setText(DateFormat.getTimeInstance().format(questionCard.getMoment()));
+        vh.userName.setText(questionCard.getAskerName().getName());
 
     }
 
     @Override
     public int getItemCount() {
-        return questions.size();
+        return questionCards.size();
     }
 
 

@@ -3,17 +3,17 @@ package br.edu.infnet.classmanager;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Question {
+public class QuestionCard {
 
-    private String body;
+    private java.lang.String body;
     private Date moment;
-    private User asker;
+    private String askerName;
     private boolean answered;
     private boolean anonymous;
 
-    public Question(String text, User asker, boolean anonymous) {
+    public QuestionCard(java.lang.String text, String askerName, boolean anonymous) {
         this.body = text;
-        this.asker = asker;
+        this.askerName = askerName;
         this.anonymous = anonymous;
 
         this.answered = false;
@@ -22,11 +22,11 @@ public class Question {
     }
 
     @Override
-    public String toString() {
-        return body + "\n" + moment + "\n" + asker.getName() + "\n";
+    public java.lang.String toString() {
+        return body + "\n" + moment + "\n" + askerName.getName() + "\n";
     }
 
-    public String getBody() {
+    public java.lang.String getBody() {
         return body;
     }
 
@@ -34,15 +34,15 @@ public class Question {
         return moment;
     }
 
-    public User getAsker() {
-        return asker;
+    public String getAskerName() {
+        return askerName;
     }
 
     public boolean isAnswered() {
         return answered;
     }
 
-    public void setBody(String body) {
+    public void setBody(java.lang.String body) {
         this.body = body;
     }
 
