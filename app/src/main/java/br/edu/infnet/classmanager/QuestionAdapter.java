@@ -44,6 +44,12 @@ public class QuestionAdapter extends RecyclerView.Adapter {
     }
 
 
+    public void addItem(QuestionCard questionCard){
+        questionCards.add(0, questionCard);
+        //notifyItemRangeChanged(0, getItemCount());
+        notifyDataSetChanged();
+    }
+
     public class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         public TextView body;

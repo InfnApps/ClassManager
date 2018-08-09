@@ -1,6 +1,7 @@
 package br.edu.infnet.classmanager;
 
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -30,38 +31,43 @@ public class MainActivity extends AppCompatActivity {
     public static String getAuthenticatedUserName(){
         return "Josias";
     }
+   ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        User defaultUser = new User(1,
-                            "Humberto",
-                            "humberto@al.infnet.edu.br",
-                            "ADS");
+        viewPager = findViewById(R.id.view_pager);
+        QuestionPanicPagerAdapter adapter = new QuestionPanicPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
 
-        questionCards = new ArrayList<>();
-        for (int i = 1; i < 3; i++){
-                questionCards.add(new QuestionCard("Qual será a " + i + "a pergunta?",
-                        defaultUser.getName(),
-                        true));
-            }
-
-        //
-        QuestionAdapter adapter = new QuestionAdapter(questionCards);
-
-        questionList = findViewById(R.id.questions_list);
-        // LayoutManager para
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        //GridLayoutManager llm = new GridLayoutManager(this, 2);
-        //StaggeredGridLayoutManager llm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        questionList.setLayoutManager(llm);
-
-        questionList.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
-
-        questionList.setAdapter(adapter);
+//        User defaultUser = new User(1,
+//                            "Humberto",
+//                            "humberto@al.infnet.edu.br",
+//                            "ADS");
+//
+//        questionCards = new ArrayList<>();
+//        for (int i = 1; i < 3; i++){
+//                questionCards.add(new QuestionCard("Qual será a " + i + "a pergunta?",
+//                        defaultUser.getName(),
+//                        true));
+//            }
+//
+//        //
+//        QuestionAdapter adapter = new QuestionAdapter(questionCards);
+//
+//        questionList = findViewById(R.id.questions_list);
+//        // LayoutManager para
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        //GridLayoutManager llm = new GridLayoutManager(this, 2);
+//        //StaggeredGridLayoutManager llm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+//        questionList.setLayoutManager(llm);
+//
+//        questionList.addItemDecoration(new DividerItemDecoration(this,
+//                DividerItemDecoration.VERTICAL));
+//
+//        questionList.setAdapter(adapter);
 
     }
 
@@ -71,65 +77,65 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-        new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        final List<QuestionCard> questionCards = new ArrayList<>();
-                        File inputFile = new File(getFilesDir(), QUESTIONS_FILENAME);
-                        try{
-                            InputStream inputStream = new FileInputStream(inputFile);
-                            InputStreamReader reader = new InputStreamReader(inputStream);
-                            // para ler textos de maneira estruturada
-                            BufferedReader bufferedReader = new BufferedReader(reader);
-
-                            String line = bufferedReader.readLine();
-
-                            while (line != null){
-                                if (line.equals("#")){
-                                    String body = bufferedReader.readLine();
-                                    //TODO: deal with Date datatype
-                                    String date = bufferedReader.readLine();
-                                    String askerName = bufferedReader.readLine();
-                                    boolean isAnonym = Boolean.parseBoolean(bufferedReader.readLine());
-                                    QuestionCard questionCard = new QuestionCard(body, askerName, isAnonym);
-                                    questionCards.add(questionCard);
-                                }
-                                line = bufferedReader.readLine();
-                            }
-
-                        } catch (final FileNotFoundException exception){
-                            MainActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                        } catch (final IOException exception){
-                            MainActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            });
-                        }
-
-                        questionList.post(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        QuestionAdapter adapter = new QuestionAdapter(questionCards);
-                                        questionList.setAdapter(adapter);
-                                        // atualizar visualizção dos elementos da RecyclerView
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-                        );
-
-                    }
-                }
-        ).start();
+//        new Thread(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        final List<QuestionCard> questionCards = new ArrayList<>();
+//                        File inputFile = new File(getFilesDir(), QUESTIONS_FILENAME);
+//                        try{
+//                            InputStream inputStream = new FileInputStream(inputFile);
+//                            InputStreamReader reader = new InputStreamReader(inputStream);
+//                            // para ler textos de maneira estruturada
+//                            BufferedReader bufferedReader = new BufferedReader(reader);
+//
+//                            String line = bufferedReader.readLine();
+//
+//                            while (line != null){
+//                                if (line.equals("#")){
+//                                    String body = bufferedReader.readLine();
+//                                    //TODO: deal with Date datatype
+//                                    String date = bufferedReader.readLine();
+//                                    String askerName = bufferedReader.readLine();
+//                                    boolean isAnonym = Boolean.parseBoolean(bufferedReader.readLine());
+//                                    QuestionCard questionCard = new QuestionCard(body, askerName, isAnonym);
+//                                    questionCards.add(questionCard);
+//                                }
+//                                line = bufferedReader.readLine();
+//                            }
+//
+//                        } catch (final FileNotFoundException exception){
+//                            MainActivity.this.runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+//                                }
+//                            });
+//
+//                        } catch (final IOException exception){
+//                            MainActivity.this.runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+//                                }
+//                            });
+//                        }
+//
+//                        questionList.post(
+//                                new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        QuestionAdapter adapter = new QuestionAdapter(questionCards);
+//                                        questionList.setAdapter(adapter);
+//                                        // atualizar visualizção dos elementos da RecyclerView
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                }
+//                        );
+//
+//                    }
+//                }
+//        ).start();
 
 
     }

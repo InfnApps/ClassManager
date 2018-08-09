@@ -11,6 +11,9 @@ public class QuestionCard {
     private boolean answered;
     private boolean anonymous;
 
+    public QuestionCard() {
+    }
+
     public QuestionCard(String text, String askerName, boolean anonymous) {
         this.body = text;
         this.askerName = askerName;
@@ -48,5 +51,21 @@ public class QuestionCard {
 
     public void setAnswered(boolean answered) {
         this.answered = answered;
+    }
+
+    public void setMoment(Date moment) {
+        this.moment = moment;
+    }
+
+    public void setAskerName(String askerName) {
+        this.askerName = askerName;
+    }
+
+    public boolean isAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
     }
 }
