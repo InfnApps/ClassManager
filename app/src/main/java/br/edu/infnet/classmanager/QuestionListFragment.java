@@ -3,6 +3,8 @@ package br.edu.infnet.classmanager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ public class QuestionListFragment extends Fragment {
         List<QuestionCard> questionCards = new LinkedList<>();
         final QuestionAdapter adapter = new QuestionAdapter(questionCards);
         questionsList.setAdapter(adapter);
+        questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle args = getArguments();
         if (args != null){
@@ -82,7 +85,7 @@ public class QuestionListFragment extends Fragment {
             });
         }
         else{
-            Toast.makeText(getContext(), "Argumento vazio", Toast.LENGTH_LONG);
+            Toast.makeText(getContext(), "Argumento vazio", Toast.LENGTH_LONG).show();
         }
 
         return rootView;
