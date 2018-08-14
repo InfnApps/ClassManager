@@ -9,7 +9,7 @@ import br.edu.infnet.classmanager.utils.Constants;
 
 public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
 
-    private int FRAGMENTS_COUNT = 2;
+    private int FRAGMENTS_COUNT = 3;
 
     public QuestionPanicPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -23,6 +23,8 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
                 //TODO: mostrar perguntas respondidas
             case 1:
                 return new QuestionListFragment();
+            case 2:
+                return new PanicFragment();
             default:
                 //TODO: error prone
                 return null;
@@ -34,9 +36,11 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Perguntas Ativas";
+                return "Ativas";
             case 1:
-                return "Perguntas Respondidas";
+                return "Respondidas";
+            case 2:
+                return "Pânico";
             default:
                 return "Desespero!";
         }
