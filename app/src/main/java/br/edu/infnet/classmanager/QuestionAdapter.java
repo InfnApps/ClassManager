@@ -1,5 +1,7 @@
 package br.edu.infnet.classmanager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import java.text.DateFormat;
@@ -13,9 +15,16 @@ import java.util.List;
 public class QuestionAdapter extends RecyclerView.Adapter {
 
     List<QuestionCard> questionCards;
+    OnFragmentInteractionListener fragmentInteractionListener;
 
     public QuestionAdapter(List<QuestionCard> questionCards) {
         this.questionCards = questionCards;
+    }
+
+    public QuestionAdapter(List<QuestionCard> questionCards,
+                           OnFragmentInteractionListener listener) {
+        this.questionCards = questionCards;
+        fragmentInteractionListener = listener;
     }
 
     @NonNull
@@ -23,6 +32,20 @@ public class QuestionAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View card = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.question_card, parent, false);
+
+
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fragmentInteractionListener != null){
+                    fragmentInteractionListener.onCardClick(view);
+                }
+//                Context context = view.getContext();
+//                context.startActivity(
+//                        new Intent(context, QuestionFeedbackActivity.class));
+            }
+        });
 
         return new QuestionViewHolder(card);
     }

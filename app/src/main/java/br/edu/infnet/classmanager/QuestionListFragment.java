@@ -29,6 +29,7 @@ import br.edu.infnet.classmanager.utils.Constants;
 public class QuestionListFragment extends Fragment {
 
     RecyclerView questionsList;
+    OnFragmentInteractionListener fragmentInteractionListener;
 
     public QuestionListFragment() {
         // Required empty public constructor
@@ -45,7 +46,8 @@ public class QuestionListFragment extends Fragment {
         questionsList = rootView.findViewById(R.id.questions_list);
 
         List<QuestionCard> questionCards = new LinkedList<>();
-        final QuestionAdapter adapter = new QuestionAdapter(questionCards);
+        final QuestionAdapter adapter = new QuestionAdapter(
+                questionCards, fragmentInteractionListener);
         questionsList.setAdapter(adapter);
         questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
