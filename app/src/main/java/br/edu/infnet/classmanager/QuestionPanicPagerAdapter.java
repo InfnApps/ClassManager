@@ -9,7 +9,7 @@ import br.edu.infnet.classmanager.utils.Constants;
 
 public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
 
-    private int FRAGMENTS_COUNT = 3;
+    private final int FRAGMENTS_COUNT = 3;
 
     public QuestionPanicPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -19,7 +19,7 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return QuestionListFragment.newInstance(Constants.QUESTIONS_ENDPOINT);
+                return QuestionListFragment.newInstance(Constants.ACTIVE_QUESTIONS_ENDPOINT);
                 //TODO: mostrar perguntas respondidas
             case 1:
                 return new QuestionListFragment();

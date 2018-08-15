@@ -60,7 +60,6 @@ public class QuestionListFragment extends Fragment {
                     QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
                     QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
                     adapter.addItem(questionCard);
-                    //adapter.addItem(questionCard);
                 }
 
                 @Override
