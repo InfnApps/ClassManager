@@ -11,4 +11,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="peace_btn_text">De boa</string>
     <string name="panic_btn_text">Pânico</string>
+    <string name="answer_comment_prompt">Comentário</string>
 </resources>

@@ -1,6 +1,8 @@
 package br.edu.infnet.classmanager;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -90,6 +92,17 @@ public class QuestionListFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener){
+            fragmentInteractionListener = (OnFragmentInteractionListener) context;
+        } else {
+            // lança execção
+            throw new ClassCastException();
+        }
     }
 
     public static QuestionListFragment newInstance(String fbEndpoint) {

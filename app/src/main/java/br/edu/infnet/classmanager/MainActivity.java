@@ -21,13 +21,15 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
     // Method to simulated a call for the authenticated user
     public static String getAuthenticatedUserName(){
         return "Josias";
     }
    ViewPager viewPager;
+
+    private final int REQUEST_ANSWER = 17;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +47,36 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onCardClick(View card) {
+        //TODO: deal with already answered questions
+        startActivityForResult(new Intent(this,
+                QuestionFeedbackActivity.class), REQUEST_ANSWER);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case REQUEST_ANSWER:
+                if(resultCode == RESULT_OK){
+                    int position = 0;
+                    //TODO: get position
+                    setQuestionAsAnswered(position);
+                } else{
+                    Toast.makeText(this, "CANCELOU",
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+
+    }
+
+    private void setQuestionAsAnswered(int position){
+        //TODO:
+        Toast.makeText(this, "REMOVER PERGUNTA",
+                Toast.LENGTH_LONG).show();
+    }
 }

@@ -73,6 +73,11 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void removeItem(int position){
+        questionCards.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public class QuestionViewHolder extends RecyclerView.ViewHolder {
 
         public TextView body;
