@@ -1,9 +1,12 @@
 package br.edu.infnet.classmanager;
 
+import com.google.firebase.database.DataSnapshot;
+
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class QuestionCard {
+public class QuestionCard implements Serializable {
 
     private String body;
     private Date moment;

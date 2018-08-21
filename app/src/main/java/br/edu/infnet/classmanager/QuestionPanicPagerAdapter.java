@@ -22,7 +22,7 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
                 return QuestionListFragment.newInstance(Constants.ACTIVE_QUESTIONS_ENDPOINT);
                 //TODO: mostrar perguntas respondidas
             case 1:
-                return new QuestionListFragment();
+                return QuestionListFragment.newInstance(Constants.ANSWERED_QUESTIONS_ENDPOINT);
             case 2:
                 return new PanicFragment();
             default:

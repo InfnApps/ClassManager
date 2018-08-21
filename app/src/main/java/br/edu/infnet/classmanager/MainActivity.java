@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,31 +50,36 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     @Override
-    public void onCardClick(View card) {
+    public void onCardClick(DataSnapshot dataSnapshot) {
         //TODO: deal with already answered questions
-        startActivityForResult(new Intent(this,
-                QuestionFeedbackActivity.class), REQUEST_ANSWER);
+        Intent intent = new Intent(this,
+                QuestionFeedbackActivity.class);
+        //Serializable ou Parcelable
+        QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
+        intent.putExtra("QuestionCard", questionCard);
+        intent.putExtra("FirebaseKey", dataSnapshot.getKey());
 
+        startActivity(intent);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode){
-            case REQUEST_ANSWER:
-                if(resultCode == RESULT_OK){
-                    int position = 0;
-                    //TODO: get position
-                    setQuestionAsAnswered(position);
-                } else{
-                    Toast.makeText(this, "CANCELOU",
-                            Toast.LENGTH_LONG).show();
-                }
-                break;
-        }
-
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch (requestCode){
+//            case REQUEST_ANSWER:
+//                if(resultCode == RESULT_OK){
+//                    int position = 0;
+//                    //TODO: get position
+//                    setQuestionAsAnswered(position);
+//                } else{
+//                    Toast.makeText(this, "CANCELOU",
+//                            Toast.LENGTH_LONG).show();
+//                }
+//                break;
+//        }
+//
+//    }
 
     private void setQuestionAsAnswered(int position){
         //TODO:

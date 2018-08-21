@@ -7,4 +7,9 @@ public class Constants {
     public static String ANSWERED_QUESTIONS_ENDPOINT = "AnsweredQuestionCards";
 
     public static final String QUESTIONS_FILENAME = "questionCards.txt";
+
+
+
+    public static final String  QUESTION_FB_KEY = "FirebaseKey";
+    public static final String QUESTIONCARD_KEY = "QuestionCard";
 }

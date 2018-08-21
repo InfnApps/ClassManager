@@ -21,20 +21,24 @@ import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter {
 
-    List<QuestionCard> questionCards;
+    //List<QuestionCard> questionCards;
+    // dados do Firebase
+    List<DataSnapshot> dataSnapshots;
     OnFragmentInteractionListener fragmentInteractionListener;
 
-    public QuestionAdapter(List<QuestionCard> questionCards) {
-        this.questionCards = questionCards;
-    }
+    //public QuestionAdapter(List<QuestionCard> questionCards) {
+        //this.questionCards = questionCards;
+    //}
 
     public QuestionAdapter() {
-        this.questionCards = new ArrayList<>();
+        //this.questionCards = new ArrayList<>();
+        dataSnapshots = new ArrayList<>();
     }
 
     public QuestionAdapter(String fbEndpoint,
                            OnFragmentInteractionListener listener) {
-        this.questionCards = new ArrayList<>();
+        //this.questionCards = new ArrayList<>();
+        dataSnapshots = new ArrayList<>();
         fragmentInteractionListener = listener;
 
 
@@ -43,10 +47,12 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         dbReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //TODO: remove
                 QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
+                //dataSnapshots.
                 //QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
                 //adapter.
-                addItem(questionCard);
+                addItem(dataSnapshot/*questionCard*/);
             }
 
             @Override
@@ -56,7 +62,14 @@ public class QuestionAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                //TODO:
+                String key = dataSnapshot.getKey();
+                for (int i = 0; i < dataSnapshots.size(); i++){
+                    if (key.equals(dataSnapshots.get(i).getKey())){
+                        removeItem(i);
+                        break;
+                    }
+                }
+
             }
 
             @Override
@@ -77,48 +90,38 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         View card = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.question_card, parent, false);
 
-
-
-        card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fragmentInteractionListener != null){
-                    fragmentInteractionListener.onCardClick(view);
-                }
-//                Context context = view.getContext();
-//                context.startActivity(
-//                        new Intent(context, QuestionFeedbackActivity.class));
-            }
-        });
-
         return new QuestionViewHolder(card);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        QuestionCard questionCard = questionCards.get(position);
+        //QuestionCard questionCard = questionCards.get(position);
+        DataSnapshot dataSnapshot = dataSnapshots.get(position);
+        //finalmente converter o snapshot em questionCard
 
+        QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
         QuestionViewHolder vh = (QuestionViewHolder) holder;
         vh.body.setText(questionCard.getBody());
         vh.moment.setText(DateFormat.getTimeInstance().format(questionCard.getMoment()));
         vh.userName.setText(questionCard.getAskerName());
-
     }
 
     @Override
     public int getItemCount() {
-        return questionCards.size();
+        //return questionCards.size();
+        return dataSnapshots.size();
     }
 
 
-    public void addItem(QuestionCard questionCard){
-        questionCards.add(0, questionCard);
+    public void addItem(DataSnapshot dataSnapshot/*QuestionCard questionCard*/){
+        //questionCards.add(0, questionCard);
+        dataSnapshots.add(0, dataSnapshot);
         //notifyItemRangeChanged(0, getItemCount());
         notifyDataSetChanged();
     }
 
     public void removeItem(int position){
-        questionCards.remove(position);
+        dataSnapshots.remove(position);
         notifyItemRemoved(position);
     }
 
@@ -132,6 +135,21 @@ public class QuestionAdapter extends RecyclerView.Adapter {
             body = itemView.findViewById(R.id.question_body);
             moment = itemView.findViewById(R.id.question_moment);
             userName = itemView.findViewById(R.id.asker_name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (fragmentInteractionListener != null){
+                        // recupera o datasnapshot da posição correta
+                        DataSnapshot snapshot = dataSnapshots.get(
+                                getAdapterPosition());
+                        fragmentInteractionListener.onCardClick(snapshot);
+                    }
+//                Context context = view.getContext();
+//                context.startActivity(
+//                        new Intent(context, QuestionFeedbackActivity.class));
+                }
+            });
         }
     }
 }
