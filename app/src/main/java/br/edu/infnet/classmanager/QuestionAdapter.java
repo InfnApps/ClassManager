@@ -10,6 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter {
@@ -21,10 +28,47 @@ public class QuestionAdapter extends RecyclerView.Adapter {
         this.questionCards = questionCards;
     }
 
-    public QuestionAdapter(List<QuestionCard> questionCards,
+    public QuestionAdapter() {
+        this.questionCards = new ArrayList<>();
+    }
+
+    public QuestionAdapter(String fbEndpoint,
                            OnFragmentInteractionListener listener) {
-        this.questionCards = questionCards;
+        this.questionCards = new ArrayList<>();
         fragmentInteractionListener = listener;
+
+
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference(fbEndpoint);
+        // Lê dados do firebase
+        dbReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
+                //QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
+                //adapter.
+                addItem(questionCard);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                //TODO:
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @NonNull

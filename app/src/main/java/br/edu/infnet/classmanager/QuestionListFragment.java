@@ -47,47 +47,52 @@ public class QuestionListFragment extends Fragment {
         // pega o RecyclerView da interface do fragmento
         questionsList = rootView.findViewById(R.id.questions_list);
 
-        List<QuestionCard> questionCards = new LinkedList<>();
-        final QuestionAdapter adapter = new QuestionAdapter(
-                questionCards, fragmentInteractionListener);
-        questionsList.setAdapter(adapter);
-        questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        //List<QuestionCard> questionCards = new LinkedList<>();
+
 
         Bundle args = getArguments();
         if (args != null){
             String fbEndpoint = args.getString(Constants.QUESTIONS_ENDPOINT_KEY);
-            DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference(fbEndpoint);
-            // Lê dados do firebase
-            dbReference.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
-                    QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
-                    adapter.addItem(questionCard);
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    //TODO:
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+            final QuestionAdapter adapter = new QuestionAdapter(
+                    fbEndpoint, fragmentInteractionListener);
+            questionsList.setAdapter(adapter);
+            questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
+            //String fbEndpoint = args.getString(Constants.QUESTIONS_ENDPOINT_KEY);
+//            DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference(fbEndpoint);
+//            // Lê dados do firebase
+//            dbReference.addChildEventListener(new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                    QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
+//                    QuestionAdapter adapter = (QuestionAdapter) questionsList.getAdapter();
+//                    adapter.addItem(questionCard);
+//                }
+//
+//                @Override
+//                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(DataSnapshot dataSnapshot) {
+//                    //TODO:
+//                }
+//
+//                @Override
+//                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
         }
         else{
+            QuestionAdapter adapter = new QuestionAdapter();
+            questionsList.setAdapter(adapter);
+            questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
             Toast.makeText(getContext(), "Argumento vazio", Toast.LENGTH_LONG).show();
         }
 
