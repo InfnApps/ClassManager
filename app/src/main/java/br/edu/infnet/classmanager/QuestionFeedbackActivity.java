@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -49,8 +50,10 @@ public class QuestionFeedbackActivity extends AppCompatActivity {
 
     public void setAsAnswered(View view){
         EditText commentField = findViewById(R.id.answer_comment_field);
-        //TODO: adicionar comentários à pergunta
-
+        //TODO: adicionar resposta à pergunta
+        Answer answer = new Answer(commentField.getText().toString(),
+                "Placeholder User",
+                "");
 
         DatabaseReference questionReference = FirebaseDatabase.getInstance().
                 getReference(Constants.ACTIVE_QUESTIONS_ENDPOINT).
