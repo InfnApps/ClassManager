@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import br.edu.infnet.classmanager.models.QuestionCard;
 import br.edu.infnet.classmanager.utils.Constants;
 
 public class QuestionComposer extends AppCompatActivity {

@@ -1,10 +1,13 @@
-package br.edu.infnet.classmanager;
+package br.edu.infnet.classmanager.models;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.ServerValue;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class QuestionCard implements Serializable {
 
@@ -13,6 +16,9 @@ public class QuestionCard implements Serializable {
     private String askerName;
     private boolean answered;
     private boolean anonymous;
+
+    private Map<String, String> createdAt;
+
 
     public QuestionCard() {
     }
@@ -25,6 +31,18 @@ public class QuestionCard implements Serializable {
         this.answered = false;
         //pega a data e hora do momento de criação
         this.moment = Calendar.getInstance().getTime();
+        // marca esse atributo com valor especial a ser substituído
+        // pelo TIMESTAMP no servidor
+        createdAt = ServerValue.TIMESTAMP;
+    }
+
+    public Map<String, String> getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        //this.createdAt = createdAt;
+        moment = new Date(createdAt);
     }
 
     @Override
@@ -36,6 +54,7 @@ public class QuestionCard implements Serializable {
         return body;
     }
 
+    @Exclude
     public Date getMoment() {
         return moment;
     }

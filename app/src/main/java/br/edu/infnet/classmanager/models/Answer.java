@@ -1,4 +1,4 @@
-package br.edu.infnet.classmanager;
+package br.edu.infnet.classmanager.models;
 
 public class Answer {
 

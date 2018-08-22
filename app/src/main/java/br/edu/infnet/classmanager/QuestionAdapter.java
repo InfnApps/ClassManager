@@ -1,7 +1,5 @@
 package br.edu.infnet.classmanager;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import java.text.DateFormat;
@@ -18,6 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.edu.infnet.classmanager.models.QuestionCard;
 
 public class QuestionAdapter extends RecyclerView.Adapter {
 
