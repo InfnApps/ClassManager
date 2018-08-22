@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".QuestionComposer" />
-        <activity android:name=".QuestionFeedbackActivity"></activity>
+        <activity android:name=".QuestionFeedbackActivity" />
+        <activity android:name=".ShowQuestionActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 
 import br.edu.infnet.classmanager.models.QuestionCard;
+import br.edu.infnet.classmanager.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
@@ -39,13 +40,20 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
     @Override
     public void onCardClick(DataSnapshot dataSnapshot) {
-        //TODO: deal with already answered questions
-        Intent intent = new Intent(this,
-                QuestionFeedbackActivity.class);
-        //Serializable ou Parcelable
+        Intent intent;
         QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
-        intent.putExtra("QuestionCard", questionCard);
-        intent.putExtra("FirebaseKey", dataSnapshot.getKey());
+        if (questionCard.isAnswered()){
+            intent = new Intent(this,
+                    ShowQuestionActivity.class);
+
+        } else {
+            intent = new Intent(this,
+                    QuestionFeedbackActivity.class);
+        }
+           //Serializable ou Parcelable
+
+        intent.putExtra(Constants.QUESTIONCARD_KEY, questionCard);
+        intent.putExtra(Constants.QUESTION_FB_KEY, dataSnapshot.getKey());
 
         startActivity(intent);
     }

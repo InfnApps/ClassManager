@@ -12,7 +12,8 @@ import java.util.Map;
 public class QuestionCard implements Serializable {
 
     private String body;
-    private Date moment;
+    //private Date moment;
+    private long timestamp;
     private String askerName;
     private boolean answered;
     private boolean anonymous;
@@ -30,7 +31,7 @@ public class QuestionCard implements Serializable {
 
         this.answered = false;
         //pega a data e hora do momento de criação
-        this.moment = Calendar.getInstance().getTime();
+        //this.moment = Calendar.getInstance().getTime();
         // marca esse atributo com valor especial a ser substituído
         // pelo TIMESTAMP no servidor
         createdAt = ServerValue.TIMESTAMP;
@@ -42,12 +43,14 @@ public class QuestionCard implements Serializable {
 
     public void setCreatedAt(long createdAt) {
         //this.createdAt = createdAt;
-        moment = new Date(createdAt);
+        //moment = new Date(createdAt);
+        this.createdAt = ServerValue.TIMESTAMP;
+        timestamp = createdAt;
     }
 
     @Override
     public String toString() {
-        return body + "\n" + moment + "\n" + askerName + "\n" + anonymous + "\n";
+        return body + "\n"  + "\n" + askerName + "\n" + anonymous + "\n";
     }
 
     public String getBody() {
@@ -56,7 +59,8 @@ public class QuestionCard implements Serializable {
 
     @Exclude
     public Date getMoment() {
-        return moment;
+        //return moment;
+        return new Date(timestamp);
     }
 
     public String getAskerName() {
@@ -75,9 +79,9 @@ public class QuestionCard implements Serializable {
         this.answered = answered;
     }
 
-    public void setMoment(Date moment) {
-        this.moment = moment;
-    }
+    //public void setMoment(Date moment) {
+     //   this.moment = moment;
+    //}
 
     public void setAskerName(String askerName) {
         this.askerName = askerName;

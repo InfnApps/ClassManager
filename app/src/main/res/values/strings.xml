@@ -12,4 +12,6 @@
     <string name="peace_btn_text">De boa</string>
     <string name="panic_btn_text">Pânico</string>
     <string name="answer_comment_prompt">Comentário</string>
+    <string name="last_modified_text">Última modificação:</string>
+    <string name="lore_ipsum">Lore Ipsum</string>
 </resources>

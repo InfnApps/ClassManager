@@ -43,28 +43,34 @@ public class QuestionFeedbackActivity extends AppCompatActivity {
     }
 
     public void setAsAnswered(View view){
-        EditText commentField = findViewById(R.id.answer_comment_field);
+        EditText answerField = findViewById(R.id.answer_comment_field);
         //TODO: adicionar resposta à pergunta
-        Answer answer = new Answer(commentField.getText().toString(),
-                "Placeholder User",
-                "");
+        Answer answer = new Answer(answerField.getText().toString(),
+                "Placeholder User");
 
         DatabaseReference questionReference = FirebaseDatabase.getInstance().
                 getReference(Constants.ACTIVE_QUESTIONS_ENDPOINT).
                 child(questionKey);
         //deleta do firebase
-        finish();
 
         questionReference.removeValue();
 
-        DatabaseReference answeredReference = FirebaseDatabase.getInstance().
+        DatabaseReference answeredQuestionsReference = FirebaseDatabase.getInstance().
                 getReference(Constants.ANSWERED_QUESTIONS_ENDPOINT).push();
-
         //Adiciona à lista de respondidas, mas antes marca como respondida
         questionCard.setAnswered(true);
-        answeredReference.setValue(questionCard);
+        answeredQuestionsReference.setValue(questionCard);
 
 
+
+        DatabaseReference answersReference = FirebaseDatabase.getInstance().
+                getReference(Constants.ANSWERS_ENDPOINT).
+                child(answeredQuestionsReference.getKey());
+
+        answersReference.setValue(answer);
+
+
+        finish();
 
         //TODO: add and stop progress dialog on completion
                 /*.addOnCompleteListener(new OnCompleteListener<Void>() {
