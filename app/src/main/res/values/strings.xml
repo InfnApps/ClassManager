@@ -14,4 +14,10 @@
     <string name="answer_comment_prompt">Comentário</string>
     <string name="last_modified_text">Última modificação:</string>
     <string name="lore_ipsum">Lore Ipsum</string>
+
+    <string name="email_prompt">Email</string>
+    <string name="password_prompt">Senha</string>
+    <string name="signin">Entrar</string>
+    <string name="signup_text">Cadastrar</string>
+    <string name="email_confirmation_prompt">Confirme o email</string>
 </resources>
