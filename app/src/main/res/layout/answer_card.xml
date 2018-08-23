@@ -8,32 +8,41 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/default_padding">
 
+
+
+        <TextView
+            android:id="@+id/answer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:text="@string/lore_ipsum" />
+
+
         <TextView
             android:id="@+id/last_modified"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/last_modified_text"/>
+            android:text="@string/last_modified_text"
+            android:layout_margin="@dimen/min_margin"
+            android:layout_below="@id/answer_text"/>
 
         <TextView
             android:id="@+id/last_modified_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/min_margin"
             android:text="@string/moment_placeholder"
-            android:layout_toRightOf="@id/last_modified"/>
+            android:layout_toRightOf="@id/last_modified"
+            android:layout_below="@id/answer_text"/>
 
         <TextView
             android:id="@+id/last_modified_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/anonymous_name"
-            android:layout_toRightOf="@id/last_modified_time"/>
-
-        <TextView
-            android:id="@+id/answer_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lore_ipsum"
-            android:layout_below="@id/last_modified"/>
+            android:layout_margin="@dimen/min_margin"
+            android:layout_toRightOf="@id/last_modified_time"
+            android:layout_below="@id/answer_text"/>
 
     </RelativeLayout>
 

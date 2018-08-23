@@ -3,7 +3,10 @@ package br.edu.infnet.classmanager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 
 import br.edu.infnet.classmanager.models.Answer;
 import br.edu.infnet.classmanager.models.QuestionCard;
@@ -35,24 +39,37 @@ public class ShowQuestionActivity extends AppCompatActivity {
                 getSerializableExtra(Constants.QUESTIONCARD_KEY);
 
         DatabaseReference answerReference = FirebaseDatabase.getInstance().
-                getReference(answerKey);
+                getReference("Answers").child(answerKey);
+
 
         //answerReference.addChildEventListener(new COmp;
 
+        //answerReference.addValueEventListener()
         answerReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Answer answer = dataSnapshot.getValue(Answer.class);
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
+                if (dataSnapshot.exists()){
+                    Answer answer = dataSnapshot.getValue(Answer.class);
+                    TextView textView = findViewById(R.id.last_modified_time);
+                    textView.setText(
+                            DateFormat.getTimeInstance().
+                                    format(answer.getLastModified()));
+                    textView = findViewById(R.id.last_modified_user);
+                    textView.setText(answer.getUserName());
+                    textView = findViewById(R.id.answer_text);
+                    textView.setText(answer.getText());
+                } else {
+                    Log.e("ANSWER", answerKey);
                 }
-        );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
