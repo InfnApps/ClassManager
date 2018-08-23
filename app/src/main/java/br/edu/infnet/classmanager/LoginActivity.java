@@ -29,4 +29,10 @@ public class LoginActivity extends AppCompatActivity {
     public void goToSignUp(View view){
         startActivity(new Intent(this, SignUpActivity.class));
     }
+
+    public void skipToMain(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        //TODO: remove from stack
+        startActivity(intent);
+    }
 }

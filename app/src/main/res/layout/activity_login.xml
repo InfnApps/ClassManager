@@ -49,4 +49,11 @@
         android:layout_height="wrap_content"
         android:onClick="signIn"/>
 
+    <Button
+        android:id="@+id/skip_button"
+        android:text="Pular etapa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="skipToMain"/>
+
 </LinearLayout>

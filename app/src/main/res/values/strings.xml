@@ -20,4 +20,5 @@
     <string name="signin">Entrar</string>
     <string name="signup_text">Cadastrar</string>
     <string name="email_confirmation_prompt">Confirme o email</string>
+    <string name="password_confirmation_prompt">Confirme a senha</string>
 </resources>

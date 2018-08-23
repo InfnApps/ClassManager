@@ -2,10 +2,10 @@ package br.edu.infnet.classmanager.models;
 
 public class User {
 
-    private int id;
-    private java.lang.String name;
-    private java.lang.String email;
-    private java.lang.String course;
+    //private int id;
+    private String name;
+    private String email;
+    private String course;
     private static User anonymous;
 
     public static User getAnonymousUser(){
@@ -13,38 +13,42 @@ public class User {
         return anonymous;
     }
 
-    public User(int id, java.lang.String name, java.lang.String email, java.lang.String course) {
-        this.id = id;
+    public User(){}
+
+    public User(String email){
+        this.name = "";
+        this.email = email;
+        this.course = "";
+    }
+
+    public User(int id, String name, String email, String course) {
         this.name = name;
         this.email = email;
         this.course = course;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public java.lang.String getName() {
+    public String getName() {
         return name;
     }
 
-    public java.lang.String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public java.lang.String getCourse() {
+    public String getCourse() {
         return course;
     }
 
-    public void setName(java.lang.String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setEmail(java.lang.String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setCourse(java.lang.String course) {
+    public void setCourse(String course) {
         this.course = course;
     }
 }

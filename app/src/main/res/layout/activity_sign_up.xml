@@ -27,12 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/email_confirmation_field"
+            android:id="@+id/password_confirmation_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email_confirmation_prompt"/>
+            android:inputType="textPassword"
+            android:hint="@string/password_confirmation_prompt"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -54,6 +54,7 @@
         android:id="@+id/signup_button"
         android:text="@string/signup_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:onClick="createUser"/>
 
 </LinearLayout>
