@@ -23,7 +23,7 @@ public class QuestionAdapter extends RecyclerView.Adapter {
 
     //List<QuestionCard> questionCards;
     // dados do Firebase
-    List<DataSnapshot> dataSnapshots;
+    private List<DataSnapshot> dataSnapshots;
     OnFragmentInteractionListener fragmentInteractionListener;
 
     //public QuestionAdapter(List<QuestionCard> questionCards) {

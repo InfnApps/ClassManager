@@ -2,26 +2,20 @@ package br.edu.infnet.classmanager.models;
 
 public class User {
 
-    //private int id;
     private String name;
     private String email;
     private String course;
-    private static User anonymous;
 
-    public static User getAnonymousUser(){
-        anonymous = new User(0, "Anônimo", null, null);
-        return anonymous;
-    }
 
     public User(){}
 
-    public User(String email){
-        this.name = "";
+    public User(String name, String email){
+        this.name = name;
         this.email = email;
         this.course = "";
     }
 
-    public User(int id, String name, String email, String course) {
+    public User(String name, String email, String course) {
         this.name = name;
         this.email = email;
         this.course = course;

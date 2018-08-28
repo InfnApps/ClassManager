@@ -18,9 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import br.edu.infnet.classmanager.models.User;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -35,51 +32,50 @@ public class SignUpActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        userRef = FirebaseDatabase.getInstance().getReference("Users");
 
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
     }
 
 
-    private boolean validateFields(String email,  String password, String confirmation){
+    private boolean validateFields(String email, String password, String confirmation) {
         //TODO: make it right!
         return true;
     }
 
-    public void createUser(View view){
+    public void createUser(View view) {
+        EditText nameField = findViewById(R.id.name_field);
         EditText emailField = findViewById(R.id.email_field);
         EditText passwordField = findViewById(R.id.password_field);
-        EditText passwordConfirmationField = findViewById(R.id.password_confirmation_field);
 
         final String email = emailField.getText().toString();
+        final String name = nameField.getText().toString();
         String password = passwordField.getText().toString();
-        String passWordConfirmation = passwordConfirmationField.getText().toString();
 
         // se validou, posso criar usuário
-        if (validateFields(email, password, passWordConfirmation)){
+        // TODO: botar a ProgressBar para girar
+        mAuth.createUserWithEmailAndPassword(email, password).
+                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        // TODO: parar a ProgressBar
+                        if (task.isSuccessful()){
+                            FirebaseUser fbUser = mAuth.getCurrentUser();
 
-            mAuth.createUserWithEmailAndPassword(email, password).
-                    addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                FirebaseUser fbUser =  mAuth.getCurrentUser();
-                                //id criado pelo Firebase para gerenciar a conta do usuário
-                                String userKey = fbUser.getUid();
-
-                                userRef.child(userKey).setValue(new User(email));
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                //TODO: remove from stack
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(getApplicationContext(),
-                                        "Erro ao criar usuário", Toast.LENGTH_LONG);
-                            }
+                            //criar usuário no banco de dados
+                            User user = new User(name, email);
+                            userRef.child(fbUser.getUid()).setValue(user);
+                            Toast.makeText(getApplicationContext(),
+                                    "Cadastro efetuado com sucesso!",
+                                    Toast.LENGTH_LONG).show();
+                            //avançar para outra Activity (MainActivity)
+                            startActivity(new Intent(getApplicationContext(),
+                                    MainActivity.class));
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    task.getException().getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
-                    });
-        } else{
-            Toast.makeText(this, "Erro de validação", Toast.LENGTH_LONG);
-        }
+                    }
+                });
     }
-
 }
