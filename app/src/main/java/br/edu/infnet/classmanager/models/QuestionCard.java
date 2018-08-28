@@ -15,6 +15,7 @@ public class QuestionCard implements Serializable {
     //private Date moment;
     private long timestamp;
     private String askerName;
+    private String askerId;
     private boolean answered;
     private boolean anonymous;
 
@@ -24,11 +25,12 @@ public class QuestionCard implements Serializable {
     public QuestionCard() {
     }
 
-    public QuestionCard(String text, String askerName, boolean anonymous) {
+    public QuestionCard(String text, String askerName,
+                        String askerId, boolean anonymous) {
         this.body = text;
         this.askerName = askerName;
         this.anonymous = anonymous;
-
+        this.askerId = askerId;
         this.answered = false;
         //pega a data e hora do momento de criação
         //this.moment = Calendar.getInstance().getTime();
@@ -93,5 +95,13 @@ public class QuestionCard implements Serializable {
 
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
+    }
+
+    public String getAskerId() {
+        return askerId;
+    }
+
+    public void setAskerId(String askerId) {
+        this.askerId = askerId;
     }
 }

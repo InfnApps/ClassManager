@@ -14,6 +14,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -44,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                                     getApplicationContext(),
                                     MainActivity.class
                             );
+                            intent.setFlags(FLAG_ACTIVITY_CLEAR_TASK|FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(),

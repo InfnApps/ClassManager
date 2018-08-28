@@ -19,6 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import br.edu.infnet.classmanager.models.User;
+import br.edu.infnet.classmanager.utils.Constants;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -33,7 +37,8 @@ public class SignUpActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        userRef = FirebaseDatabase.getInstance().getReference("Users");
+        userRef = FirebaseDatabase.getInstance().
+                getReference(Constants.USERS_ENDPOINT);
     }
 
 
@@ -68,8 +73,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     "Cadastro efetuado com sucesso!",
                                     Toast.LENGTH_LONG).show();
                             //avançar para outra Activity (MainActivity)
-                            startActivity(new Intent(getApplicationContext(),
-                                    MainActivity.class));
+                            Intent intent = new Intent(getApplicationContext(),
+                                    MainActivity.class);
+                            intent.setFlags(FLAG_ACTIVITY_CLEAR_TASK|FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(),
                                     task.getException().getMessage(),
