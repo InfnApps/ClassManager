@@ -1,11 +1,9 @@
-package br.edu.infnet.classmanager;
+package br.edu.infnet.classmanager.fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,15 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.LinkedList;
-import java.util.List;
-
+import br.edu.infnet.classmanager.OnFragmentInteractionListener;
+import br.edu.infnet.classmanager.QuestionAdapter;
+import br.edu.infnet.classmanager.R;
 import br.edu.infnet.classmanager.utils.Constants;
 
 

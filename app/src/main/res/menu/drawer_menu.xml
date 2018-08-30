@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Perfil" android:id="@+id/profile_item"/>
+    <item android:title="Perguntas" android:id="@+id/questions_item"/>
+    <item android:title="Cadastrar" android:id="@+id/sigup_item"/>
+
+</menu>

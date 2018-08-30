@@ -19,7 +19,7 @@ import br.edu.infnet.classmanager.models.QuestionCard;
 import br.edu.infnet.classmanager.models.User;
 import br.edu.infnet.classmanager.utils.Constants;
 
-public class QuestionComposer extends AppCompatActivity {
+public class QuestionComposerActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     @Override

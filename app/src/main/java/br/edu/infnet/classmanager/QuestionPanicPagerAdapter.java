@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import br.edu.infnet.classmanager.fragments.PanicFragment;
+import br.edu.infnet.classmanager.fragments.QuestionListFragment;
 import br.edu.infnet.classmanager.utils.Constants;
 
 public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
@@ -19,12 +21,12 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
+                return new PanicFragment();
+            case 1:
                 return QuestionListFragment.newInstance(Constants.ACTIVE_QUESTIONS_ENDPOINT);
                 //TODO: mostrar perguntas respondidas
-            case 1:
-                return QuestionListFragment.newInstance(Constants.ANSWERED_QUESTIONS_ENDPOINT);
             case 2:
-                return new PanicFragment();
+                return QuestionListFragment.newInstance(Constants.ANSWERED_QUESTIONS_ENDPOINT);
             default:
                 //TODO: error prone
                 return null;
@@ -36,15 +38,17 @@ public class QuestionPanicPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Ativas";
-            case 1:
-                return "Respondidas";
-            case 2:
                 return "Pânico";
+            case 1:
+                return "Ativas";
+            case 2:
+                return "Respondidas";
             default:
                 return "Desespero!";
         }
     }
+
+
 
     @Override
     public int getCount() {

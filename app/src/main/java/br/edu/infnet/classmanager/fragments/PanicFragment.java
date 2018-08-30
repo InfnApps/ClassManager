@@ -1,4 +1,4 @@
-package br.edu.infnet.classmanager;
+package br.edu.infnet.classmanager.fragments;
 
 
 import android.content.Intent;
@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+
+import br.edu.infnet.classmanager.R;
 
 
 /**

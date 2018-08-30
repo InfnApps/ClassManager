@@ -15,12 +15,13 @@ import br.edu.infnet.classmanager.utils.Constants;
 public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener{
 
     // Method to simulated a call for the authenticated user
-    public static String getAuthenticatedUserName(){
-        return "Josias";
-    }
+    //public static String getAuthenticatedUserName(){
+//        return "Josias";
+//    }
    ViewPager viewPager;
 
     private final int REQUEST_ANSWER = 17;
+    private final int PAGER_START_POSITION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         QuestionPanicPagerAdapter adapter = new QuestionPanicPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
+        viewPager.setCurrentItem(PAGER_START_POSITION);
     }
 
     public void askQuestion(View view){
-        Intent intent = new Intent(this, QuestionComposer.class);
+        Intent intent = new Intent(this, QuestionComposerActivity.class);
         startActivity(intent);
     }
 
