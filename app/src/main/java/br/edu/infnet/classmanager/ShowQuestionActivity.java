@@ -38,6 +38,8 @@ public class ShowQuestionActivity extends AppCompatActivity {
         questionCard = (QuestionCard) intent.
                 getSerializableExtra(Constants.QUESTIONCARD_KEY);
 
+        setUpQuestionCard(questionCard);
+
         DatabaseReference answerReference = FirebaseDatabase.getInstance().
                 getReference("Answers").child(answerKey);
 
@@ -72,5 +74,18 @@ public class ShowQuestionActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void setUpQuestionCard(QuestionCard questionCard){
+        TextView textView = findViewById(R.id.question_body);
+        textView.setText(questionCard.getBody());
+
+        textView = findViewById(R.id.question_moment);
+        textView.setText(DateFormat.getTimeInstance().
+                format(questionCard.getMoment()));
+
+        textView = findViewById(R.id.asker_name);
+        textView.setText(questionCard.getAskerName());
     }
 }
