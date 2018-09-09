@@ -22,4 +22,9 @@
     <string name="email_confirmation_prompt">Confirme o email</string>
     <string name="password_confirmation_prompt">Confirme a senha</string>
     <string name="name_prompt">Nome</string>
+
+    <string name="drawer_opening">Abrindo janela de navegação</string>
+    <string name="drawer_closing">Fechando janela de navegação</string>
+
+    <string name="not_authenticated_user_question">É necessário estar logado para fazer perguntas</string>
 </resources>

@@ -53,7 +53,7 @@ public class QuestionComposerActivity extends AppCompatActivity {
                 boolean isAnonym = box.isChecked();
 
                 if (isAnonym){
-                    askerName = "Anônimo";
+                    askerName = getString(R.string.anonymous_name);
                 }
 
                 //User user = dataSnapshot.getValue(User.class);

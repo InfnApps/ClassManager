@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Perfil" android:id="@+id/menu_profile"/>
+    <item android:title="Perguntas" android:id="@+id/menu_questions"/>
+    <item android:title="Presenças" android:id="@+id/menu_attendance"/>
+    <item android:title="Sair" android:id="@+id/menu_logout"/>
+
+</menu>
