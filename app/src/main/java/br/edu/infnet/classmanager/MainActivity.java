@@ -13,10 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import br.edu.infnet.classmanager.models.QuestionCard;
 import br.edu.infnet.classmanager.utils.Constants;
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawerLayout;
 
     FirebaseAuth mAuth;
+    String username;
 
     private final int REQUEST_ANSWER = 17;
     private final int PAGER_START_POSITION = 1;
@@ -60,6 +66,12 @@ public class MainActivity extends AppCompatActivity
         viewPager.setCurrentItem(PAGER_START_POSITION);
 
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setNavigationHeader();
     }
 
     public void askQuestion(View view){
@@ -125,10 +137,29 @@ public class MainActivity extends AppCompatActivity
 
     private void setNavigationHeader(){
         navigationView.getMenu().clear();
+        final TextView textView = findViewById(R.id.auth_username);
         if(mAuth.getCurrentUser() == null){
             navigationView.inflateMenu(R.menu.drawer_menu);
+            if (textView != null){
+                textView.setText(R.string.unauth_username);
+            }
         } else {
             navigationView.inflateMenu(R.menu.authenticated_drawer_menu);
+            if (textView != null && textView.getText().toString().equals(getString(R.string.unauth_username))){
+                DatabaseReference usernameRef = FirebaseDatabase.getInstance().
+                        getReference(Constants.USERS_ENDPOINT).
+                        child(mAuth.getCurrentUser().getUid()).child("name");
+                usernameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                textView.setText(String.valueOf(dataSnapshot.getValue()));
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                textView.setText("Problema ao recuperar nome de usuário");
+                            }
+                        });
+            }
         }
     }
 }

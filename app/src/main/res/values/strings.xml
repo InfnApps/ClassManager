@@ -27,4 +27,6 @@
     <string name="drawer_closing">Fechando janela de navegação</string>
 
     <string name="not_authenticated_user_question">É necessário estar logado para fazer perguntas</string>
+    <string name="moodle_pass_prompt">Senha do Moodle</string>
+    <string name="unauth_username">Usuário não logado</string>
 </resources>
