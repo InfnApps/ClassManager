@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Class Manager</string>
+    <string name="app_name">100 Dúvidas</string>
     <string name="question_prompt">Qual é a sua dúvida?</string>
     <string name="moment_placeholder">19:25</string>
     <string name="anonymous_name">Anônimo</string>
