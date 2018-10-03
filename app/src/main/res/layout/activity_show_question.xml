@@ -7,6 +7,20 @@
     android:orientation="vertical"
     tools:context=".ShowQuestionActivity">
 
+    <RelativeLayout
+        android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:gravity="center">
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
     <include
         android:id="@+id/included_question_card"
         layout="@layout/question_card"

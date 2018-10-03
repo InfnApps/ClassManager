@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +26,7 @@ public class ShowQuestionActivity extends AppCompatActivity {
 
     String answerKey;
     QuestionCard questionCard;
+    private ViewGroup mLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class ShowQuestionActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+
+        mLoader = findViewById(R.id.loader);
+        mLoader.setVisibility(View.VISIBLE);
 
         answerKey = intent.getStringExtra(Constants.QUESTION_FB_KEY);
 
@@ -49,29 +55,31 @@ public class ShowQuestionActivity extends AppCompatActivity {
         //answerReference.addValueEventListener()
         answerReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.exists()){
-                    Answer answer = dataSnapshot.getValue(Answer.class);
-                    TextView textView = findViewById(R.id.last_modified_time);
-                    textView.setText(
-                            DateFormat.getTimeInstance().
-                                    format(answer.getLastModified()));
-                    textView = findViewById(R.id.last_modified_user);
-                    textView.setText(answer.getUserName());
-                    textView = findViewById(R.id.answer_text);
-                    textView.setText(answer.getText());
-                } else {
-                    Log.e("ANSWER", answerKey);
-                }
-            }
+                        if (dataSnapshot.exists()){
+                            Answer answer = dataSnapshot.getValue(Answer.class);
+                            TextView textView = findViewById(R.id.last_modified_time);
+                            textView.setText(
+                                    DateFormat.getTimeInstance().
+                                            format(answer.getLastModified()));
+                            textView = findViewById(R.id.last_modified_user);
+                            textView.setText(answer.getUserName());
+                            textView = findViewById(R.id.answer_text);
+                            textView.setText(answer.getText());
+                            mLoader.setVisibility(View.GONE);
+                        } else {
+                            Log.e("ANSWER", answerKey);
+                            mLoader.setVisibility(View.GONE);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
 
 
     }
