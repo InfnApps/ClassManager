@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1051280813482",
+    "firebase_url": "https://classmanager-4b016.firebaseio.com",
+    "project_id": "classmanager-4b016",
+    "storage_bucket": "classmanager-4b016.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051280813482:android:8e93eebffbf6e4f7",
+        "android_client_info": {
+          "package_name": "br.edu.infnet.classmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1051280813482-cg6mavcumgg01gs3ubiv6di2et2juqth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.infnet.classmanager",
+            "certificate_hash": "6204eee5a6c83e904b3c01bfaea806ec25e2506a"
+          }
+        },
+        {
+          "client_id": "1051280813482-kp6eahppa3chsshkn9imejnhcml3nlf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.infnet.classmanager",
+            "certificate_hash": "e321a9dcf190670cdd580091f162200c402e0d73"
+          }
+        },
+        {
+          "client_id": "1051280813482-ctlmn45e7hdrkrohsb30ua65o7njhp7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT6j7JmA_IcAQvVZ-WiVpHHkRKduGkL-0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051280813482-ctlmn45e7hdrkrohsb30ua65o7njhp7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

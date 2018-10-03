@@ -24,6 +24,7 @@ public class QuestionListFragment extends Fragment {
 
     RecyclerView questionsList;
     OnFragmentInteractionListener fragmentInteractionListener;
+    private ViewGroup mLoader;
 
     public QuestionListFragment() {
         // Required empty public constructor
@@ -39,6 +40,9 @@ public class QuestionListFragment extends Fragment {
         // pega o RecyclerView da interface do fragmento
         questionsList = rootView.findViewById(R.id.questions_list);
 
+        mLoader = rootView.findViewById(R.id.loader);
+        mLoader.setVisibility(View.VISIBLE);
+
         //List<QuestionCard> questionCards = new LinkedList<>();
 
 
@@ -49,6 +53,7 @@ public class QuestionListFragment extends Fragment {
                     fbEndpoint, fragmentInteractionListener);
             questionsList.setAdapter(adapter);
             questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
+            mLoader.setVisibility(View.GONE);
             //String fbEndpoint = args.getString(Constants.QUESTIONS_ENDPOINT_KEY);
 //            DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference(fbEndpoint);
 //            // Lê dados do firebase
@@ -86,6 +91,7 @@ public class QuestionListFragment extends Fragment {
             questionsList.setAdapter(adapter);
             questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
             Toast.makeText(getContext(), "Argumento vazio", Toast.LENGTH_LONG).show();
+            mLoader.setVisibility(View.GONE);
         }
 
         return rootView;
