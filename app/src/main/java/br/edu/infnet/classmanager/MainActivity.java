@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     ViewPager viewPager;
     NavigationView navigationView;
     DrawerLayout drawerLayout;
+    DatabaseReference panicRef;
 
     FirebaseAuth mAuth;
     String username;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.main_drawer_layout);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
 
-
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
                 toolbar, R.string.drawer_opening, R.string.drawer_closing);
@@ -66,6 +66,21 @@ public class MainActivity extends AppCompatActivity
         viewPager.setCurrentItem(PAGER_START_POSITION);
 
         mAuth = FirebaseAuth.getInstance();
+
+        final TextView panicCounter = findViewById(R.id.panicCounterShow);
+        panicRef = FirebaseDatabase.getInstance().getReference("PanicCounter");
+        panicRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Integer counter = dataSnapshot.getValue(Integer.class);
+                panicCounter.setText("Alunos em pânico " + counter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

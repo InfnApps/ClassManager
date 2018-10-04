@@ -38,6 +38,17 @@
             android:layout_margin="@dimen/default_padding"
             android:onClick="askQuestion"/>
 
+        <TextView
+            android:id="@+id/panicCounterShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp" />
+
     </RelativeLayout>
 
 
