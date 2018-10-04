@@ -103,6 +103,9 @@ public class ShowQuestionActivity extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if(fromUser) {
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    if(firebaseUser == null) { return; }
+
                     QuestionRating currentQuestionRating;
                     if  (questionRating == null)  {
                         currentQuestionRating = new QuestionRating();
@@ -111,12 +114,7 @@ public class ShowQuestionActivity extends AppCompatActivity {
                         currentQuestionRating = questionRating;
                     }
 
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    if(firebaseUser == null) { // TODO: guardar sessão atual de um usuário anônimo (é possível avaliar diversas vezes sem nem reiniciar o app)
-                        currentQuestionRating.setRatingUserId(null); // proteção redundante
-                    } else {
-                        currentQuestionRating.setRatingUserId(firebaseUser.getUid());
-                    }
+                    currentQuestionRating.setRatingUserId(firebaseUser.getUid());
                     currentQuestionRating.setRating(rating);
 
                     DatabaseReference answeredQuestionsReference = firebaseDatabase.getReference(Constants.ANSWERED_QUESTIONS_ENDPOINT).child(answerKey);
