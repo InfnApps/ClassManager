@@ -8,11 +8,10 @@ import java.util.Map;
 
 public class Answer {
 
+    private String id;
     private String text;
     private String userName;
     private Map<String, String> lastModifiedMap = ServerValue.TIMESTAMP;
-
-
     private long timeStamp;
 
     public Answer(){}
@@ -21,7 +20,6 @@ public class Answer {
         this.text = text;
         this.userName = userName;
     }
-
 
     @Exclude
     public Date getLastModified(){
@@ -36,10 +34,14 @@ public class Answer {
         return userName;
     }
 
+    @Exclude
+    public String getId() { return id; }
+
     public Map<String, String> getLastModifiedMap() {
         return lastModifiedMap;
     }
 
+    public void setId(String id) { this.id = id; }
 
     public void setText(String text) {
         this.text = text;

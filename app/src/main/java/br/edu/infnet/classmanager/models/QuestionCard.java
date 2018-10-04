@@ -1,12 +1,12 @@
 package br.edu.infnet.classmanager.models;
 
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.ServerValue;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class QuestionCard implements Serializable {
@@ -18,9 +18,8 @@ public class QuestionCard implements Serializable {
     private String askerId;
     private boolean answered;
     private boolean anonymous;
-
+    private List<QuestionRating> questionRatingList = new ArrayList<>();
     private Map<String, String> createdAt;
-
 
     public QuestionCard() {
     }
@@ -52,7 +51,7 @@ public class QuestionCard implements Serializable {
 
     @Override
     public String toString() {
-        return body + "\n"  + "\n" + askerName + "\n" + anonymous + "\n";
+        return body + "\n" + "\n" + askerName + "\n" + anonymous + "\n";
     }
 
     public String getBody() {
@@ -69,6 +68,20 @@ public class QuestionCard implements Serializable {
         return askerName;
     }
 
+    public List<QuestionRating> getQuestionRatingList() {
+        return questionRatingList;
+    }
+
+    public QuestionRating getCurrentUserRating(String userId) {
+        for (QuestionRating questionRating : questionRatingList) {
+            if (questionRating.getRatingUserId().equals(userId)) {
+                return questionRating;
+            }
+        }
+
+        return null;
+    }
+
     public boolean isAnswered() {
         return answered;
     }
@@ -82,7 +95,7 @@ public class QuestionCard implements Serializable {
     }
 
     //public void setMoment(Date moment) {
-     //   this.moment = moment;
+    //   this.moment = moment;
     //}
 
     public void setAskerName(String askerName) {
@@ -103,5 +116,34 @@ public class QuestionCard implements Serializable {
 
     public void setAskerId(String askerId) {
         this.askerId = askerId;
+    }
+
+    public void setQuestionRatingList(List<QuestionRating> questionRatingList) {
+        this.questionRatingList = questionRatingList;
+    }
+
+    public boolean isDownratedQuestion() {
+        int MINIMUM_RATINGS = 4;
+        float MINIMUM_RATINGS_AVERAGE = 3.0f;
+
+        return questionRatingList.size() >= MINIMUM_RATINGS
+                && getAverageRatings() < MINIMUM_RATINGS_AVERAGE;
+    }
+
+    public float getAverageRatings() {
+        float totalRating = 0.0F;
+
+        if (questionRatingList.isEmpty()) return totalRating;
+
+        for (QuestionRating questionRating : questionRatingList) {
+            totalRating += questionRating.getRating();
+        }
+
+        return round(totalRating / questionRatingList.size());
+    }
+
+    private static float round(float value) {
+        int valueInt = (int) (value * 10.0f);
+        return (valueInt / 10.0f);
     }
 }

@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import br.edu.infnet.classmanager.models.QuestionCard;
+import br.edu.infnet.classmanager.models.QuestionRating;
 import br.edu.infnet.classmanager.utils.Constants;
 
 public class MainActivity extends AppCompatActivity
@@ -90,16 +91,13 @@ public class MainActivity extends AppCompatActivity
         Intent intent;
         QuestionCard questionCard = dataSnapshot.getValue(QuestionCard.class);
         if (questionCard.isAnswered()){
-            intent = new Intent(this,
-                    ShowQuestionActivity.class);
-
+            intent = new Intent(this,ShowQuestionActivity.class);
         } else {
-            intent = new Intent(this,
-                    QuestionFeedbackActivity.class);
+            intent = new Intent(this,QuestionFeedbackActivity.class);
         }
 
         //Serializable ou Parcelable
-        intent.putExtra(Constants.QUESTIONCARD_KEY, questionCard);
+        intent.putExtra(Constants.QUESTION_CARD_KEY, questionCard);
         intent.putExtra(Constants.QUESTION_FB_KEY, dataSnapshot.getKey());
 
         startActivity(intent);

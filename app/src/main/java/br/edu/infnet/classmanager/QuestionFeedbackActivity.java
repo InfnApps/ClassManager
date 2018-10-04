@@ -30,7 +30,7 @@ public class QuestionFeedbackActivity extends AppCompatActivity {
         questionKey = intent.getStringExtra(Constants.QUESTION_FB_KEY);
 
         questionCard = (QuestionCard) intent.
-                getSerializableExtra(Constants.QUESTIONCARD_KEY);
+                getSerializableExtra(Constants.QUESTION_CARD_KEY);
 
 
         TextView body = findViewById(R.id.question_body);

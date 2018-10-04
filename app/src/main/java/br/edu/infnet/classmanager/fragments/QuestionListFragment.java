@@ -1,6 +1,5 @@
 package br.edu.infnet.classmanager.fragments;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,10 +15,6 @@ import br.edu.infnet.classmanager.QuestionAdapter;
 import br.edu.infnet.classmanager.R;
 import br.edu.infnet.classmanager.utils.Constants;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class QuestionListFragment extends Fragment {
 
     RecyclerView questionsList;
@@ -29,11 +24,8 @@ public class QuestionListFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_question_list, container, false);
 
         // pega o RecyclerView da interface do fragmento
@@ -41,12 +33,10 @@ public class QuestionListFragment extends Fragment {
 
         //List<QuestionCard> questionCards = new LinkedList<>();
 
-
         Bundle args = getArguments();
         if (args != null){
             String fbEndpoint = args.getString(Constants.QUESTIONS_ENDPOINT_KEY);
-            final QuestionAdapter adapter = new QuestionAdapter(
-                    fbEndpoint, fragmentInteractionListener);
+            final QuestionAdapter adapter = new QuestionAdapter(fbEndpoint, fragmentInteractionListener);
             questionsList.setAdapter(adapter);
             questionsList.setLayoutManager(new LinearLayoutManager(getContext()));
             //String fbEndpoint = args.getString(Constants.QUESTIONS_ENDPOINT_KEY);
@@ -103,7 +93,6 @@ public class QuestionListFragment extends Fragment {
     }
 
     public static QuestionListFragment newInstance(String fbEndpoint) {
-
         Bundle args = new Bundle();
         QuestionListFragment fragment = new QuestionListFragment();
 
@@ -112,5 +101,4 @@ public class QuestionListFragment extends Fragment {
 
         return fragment;
     }
-
 }

@@ -16,12 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import br.edu.infnet.classmanager.models.QuestionCard;
-import br.edu.infnet.classmanager.models.User;
 import br.edu.infnet.classmanager.utils.Constants;
 
 public class QuestionComposerActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +34,12 @@ public class QuestionComposerActivity extends AppCompatActivity {
         //pega referências para as views na interface
         final EditText questionField = findViewById(R.id.question_field);
         final CheckBox box = findViewById(R.id.anonymous_box);
-
-
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().
-                getReference(Constants.USERS_ENDPOINT).
-                child(currentUser.getUid()).child("name");
+        DatabaseReference userRef = FirebaseDatabase.getInstance()
+                .getReference(Constants.USERS_ENDPOINT)
+                .child(currentUser.getUid())
+                .child("name");
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -73,7 +71,7 @@ public class QuestionComposerActivity extends AppCompatActivity {
             }
         });
 
-        // encerra a Activity
+        // encerra a Activity removendo ela da stack, para que o backButton não reabra ela
         finish();
     }
 }
