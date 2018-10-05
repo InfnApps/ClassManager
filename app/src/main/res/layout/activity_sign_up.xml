@@ -58,7 +58,8 @@
             android:text="@string/signup_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="createUser"/>
+            android:onClick="createUser"
+            android:background="#B0C4DE"/>
 
     </LinearLayout>
 

@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity
         navigationView = findViewById(R.id.navigation_view);
         drawerLayout = findViewById(R.id.main_drawer_layout);
         Toolbar toolbar = findViewById(R.id.main_toolbar);
-
+        Toast.makeText(getApplicationContext(),
+                "Seja Bem Vindo Senhores",
+                Toast.LENGTH_SHORT).show();
 
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout,
@@ -113,9 +115,11 @@ public class MainActivity extends AppCompatActivity
         }
         switch (item.getItemId()){
             case R.id.menu_signin:
+                Toast.makeText(this, "Entre e Fique a vontade", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.menu_signup:
+                Toast.makeText(this, "Entre e se Cadastre", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;
             case R.id.menu_profile:
@@ -127,6 +131,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.menu_logout:
                 mAuth.signOut();
                 setNavigationHeader();
+                Toast.makeText(this, "Obrigado e Volte Sempre", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

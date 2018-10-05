@@ -37,7 +37,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/send"
-        android:onClick="saveQuestion"/>
+        android:onClick="saveQuestion"
+        android:background="#B0C4DE"/>
 
 
 

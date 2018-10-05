@@ -12,6 +12,7 @@
         android:layout_alignParentBottom="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:layout_margin="@dimen/min_margin"
-        android:text="@string/unauth_username"/>
+        android:text="@string/unauth_username"
+        android:background="#B0C4DE"/>
 
 </RelativeLayout>

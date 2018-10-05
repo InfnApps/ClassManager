@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,6 +25,7 @@ public class QuestionFeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_feedback);
+        Toast.makeText(this, "Será um prazer responde-lo(a)", Toast.LENGTH_SHORT).show();
 
         Intent intent = getIntent();
 
@@ -60,6 +62,7 @@ public class QuestionFeedbackActivity extends AppCompatActivity {
         //Adiciona à lista de respondidas, mas antes marca como respondida
         questionCard.setAnswered(true);
         answeredQuestionsReference.setValue(questionCard);
+        Toast.makeText(this, "Sua pergunta será respondida", Toast.LENGTH_SHORT).show();
 
 
 

@@ -1,6 +1,7 @@
 package br.edu.infnet.classmanager;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

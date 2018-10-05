@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,6 +55,7 @@ public class QuestionComposerActivity extends AppCompatActivity {
 
                 if (isAnonym){
                     askerName = getString(R.string.anonymous_name);
+                    Toast.makeText(QuestionComposerActivity.this, "Sorria, Você está sendo Filmado", Toast.LENGTH_SHORT).show();
                 }
 
                 //User user = dataSnapshot.getValue(User.class);
@@ -62,13 +64,17 @@ public class QuestionComposerActivity extends AppCompatActivity {
                         currentUser.getUid(),
                         isAnonym);
 
+
                 DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference(Constants.ACTIVE_QUESTIONS_ENDPOINT);
                 dbReference = dbReference.push();
                 dbReference.setValue(questionCard);
+
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
 
             }
         });

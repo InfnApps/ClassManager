@@ -110,7 +110,7 @@ public class SignUpActivity extends AppCompatActivity implements MoodleAuthTask.
                                 User user = new User(name, email);
                                 userRef.child(fbUser.getUid()).setValue(user);
                                 Toast.makeText(getApplicationContext(),
-                                        "Cadastro efetuado com sucesso!",
+                                        "Voce foi Cadastrado com Sucesso",
                                         Toast.LENGTH_LONG).show();
                                 //avançar para outra Activity (MainActivity)
                                 /*Intent intent = new Intent(getApplicationContext(),

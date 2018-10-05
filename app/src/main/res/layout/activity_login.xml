@@ -47,6 +47,7 @@
         android:text="@string/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="signIn"/>
+        android:onClick="signIn"
+        android:background="#B0C4DE"/>
 
 </LinearLayout>
