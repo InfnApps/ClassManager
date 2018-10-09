@@ -2,6 +2,7 @@ package br.edu.infnet.classmanager.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,11 +27,10 @@ import br.edu.infnet.classmanager.R;
  * A simple {@link Fragment} subclass.
  */
 public class PanicFragment extends Fragment {
-
-
     DatabaseReference panicRef;
     Button panicButton;
     boolean inPanic = false;
+    Integer counter;
     TextView counterText;
 
     public PanicFragment() {
@@ -46,16 +46,11 @@ public class PanicFragment extends Fragment {
 
         panicButton = rootView.findViewById(R.id.panic_button);
 
-        counterText = rootView.findViewById(R.id.counter);
-
         panicRef = FirebaseDatabase.getInstance().getReference("PanicCounter");
-
         panicRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // sincronizar contador entre os clientes
-                Integer counter = dataSnapshot.getValue(Integer.class);
-                counterText.setText(String.valueOf(counter));
+                counter = dataSnapshot.getValue(Integer.class);
             }
 
             @Override
@@ -64,27 +59,23 @@ public class PanicFragment extends Fragment {
             }
         });
 
-
-
         panicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TextView counter = getActivity().findViewById(R.id.counter);
-                //counter.setText("" + (Integer.parseInt(counter.getText().toString()) + 1));
                 Button toggleButton = (Button) view;
                 inPanic = !inPanic;
                 if (inPanic){
-                    toggleButton.setText("De boa");
+                    toggleButton.setText("De boa \n" + counter);
+                    toggleButton.setBackgroundColor(Color.GREEN);
                 } else{
-                    toggleButton.setText("Pânico!");
+                    toggleButton.setText("Pânico!\n" + counter);
+                    toggleButton.setBackgroundColor(Color.RED);
                 }
-
-
 
                 panicRef.runTransaction(new Transaction.Handler() {
                     @Override
                     public Transaction.Result doTransaction(MutableData mutableData) {
-                        Integer counter = mutableData.getValue(Integer.class);
+                        counter = mutableData.getValue(Integer.class);
                         if (counter == null){
                             return Transaction.success(mutableData);
                         }
